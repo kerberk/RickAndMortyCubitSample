@@ -1,22 +1,16 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rick_and_morty_sample/app/features/locations/models/location.dart';
 import 'package:rick_and_morty_sample/app/shared/models/info.dart';
 
-class Locations {
-  Locations({
-    required this.info,
-    required this.locations,
-  });
+part 'locations.freezed.dart';
+part 'locations.g.dart';
 
-  final Info info;
-  final List<Location> locations;
+@freezed
+class Locations with _$Locations {
+  factory Locations({
+    required Info info,
+    required List<Location> locations,
+  }) = _Locations;
 
-  factory Locations.fromJson(Map<String, dynamic> json) => Locations(
-        info: Info.fromJson(json["info"]),
-        locations: List<Location>.from(json["results"].map((x) => Location.fromJson(x))),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "info": info.toJson(),
-        "results": List<dynamic>.from(locations.map((x) => x.toJson())),
-      };
+  factory Locations.fromJson(Map<String, dynamic> json) => _$LocationsFromJson(json);
 }
