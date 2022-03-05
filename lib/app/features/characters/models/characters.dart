@@ -9,7 +9,7 @@ part 'characters.g.dart';
 class Characters with _$Characters {
   factory Characters({
     required Info info,
-    required List<Character> characters,
+    @JsonKey(name: 'results') required List<Character> characters,
   }) = _Characters;
 
   factory Characters.fromJson(Map<String, dynamic> json) => _$CharactersFromJson(json);

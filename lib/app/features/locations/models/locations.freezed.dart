@@ -21,7 +21,9 @@ Locations _$LocationsFromJson(Map<String, dynamic> json) {
 class _$LocationsTearOff {
   const _$LocationsTearOff();
 
-  _Locations call({required Info info, required List<Location> locations}) {
+  _Locations call(
+      {required Info info,
+      @JsonKey(name: 'results') required List<Location> locations}) {
     return _Locations(
       info: info,
       locations: locations,
@@ -39,6 +41,7 @@ const $Locations = _$LocationsTearOff();
 /// @nodoc
 mixin _$Locations {
   Info get info => throw _privateConstructorUsedError;
+  @JsonKey(name: 'results')
   List<Location> get locations => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -51,7 +54,7 @@ mixin _$Locations {
 abstract class $LocationsCopyWith<$Res> {
   factory $LocationsCopyWith(Locations value, $Res Function(Locations) then) =
       _$LocationsCopyWithImpl<$Res>;
-  $Res call({Info info, List<Location> locations});
+  $Res call({Info info, @JsonKey(name: 'results') List<Location> locations});
 
   $InfoCopyWith<$Res> get info;
 }
@@ -95,7 +98,7 @@ abstract class _$LocationsCopyWith<$Res> implements $LocationsCopyWith<$Res> {
           _Locations value, $Res Function(_Locations) then) =
       __$LocationsCopyWithImpl<$Res>;
   @override
-  $Res call({Info info, List<Location> locations});
+  $Res call({Info info, @JsonKey(name: 'results') List<Location> locations});
 
   @override
   $InfoCopyWith<$Res> get info;
@@ -131,7 +134,8 @@ class __$LocationsCopyWithImpl<$Res> extends _$LocationsCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Locations implements _Locations {
-  _$_Locations({required this.info, required this.locations});
+  _$_Locations(
+      {required this.info, @JsonKey(name: 'results') required this.locations});
 
   factory _$_Locations.fromJson(Map<String, dynamic> json) =>
       _$$_LocationsFromJson(json);
@@ -139,6 +143,7 @@ class _$_Locations implements _Locations {
   @override
   final Info info;
   @override
+  @JsonKey(name: 'results')
   final List<Location> locations;
 
   @override
@@ -171,7 +176,9 @@ class _$_Locations implements _Locations {
 }
 
 abstract class _Locations implements Locations {
-  factory _Locations({required Info info, required List<Location> locations}) =
+  factory _Locations(
+          {required Info info,
+          @JsonKey(name: 'results') required List<Location> locations}) =
       _$_Locations;
 
   factory _Locations.fromJson(Map<String, dynamic> json) =
@@ -180,6 +187,7 @@ abstract class _Locations implements Locations {
   @override
   Info get info;
   @override
+  @JsonKey(name: 'results')
   List<Location> get locations;
   @override
   @JsonKey(ignore: true)

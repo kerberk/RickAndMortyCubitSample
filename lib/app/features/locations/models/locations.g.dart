@@ -8,7 +8,7 @@ part of 'locations.dart';
 
 _$_Locations _$$_LocationsFromJson(Map<String, dynamic> json) => _$_Locations(
       info: Info.fromJson(json['info'] as Map<String, dynamic>),
-      locations: (json['locations'] as List<dynamic>)
+      locations: (json['results'] as List<dynamic>)
           .map((e) => Location.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -16,5 +16,5 @@ _$_Locations _$$_LocationsFromJson(Map<String, dynamic> json) => _$_Locations(
 Map<String, dynamic> _$$_LocationsToJson(_$_Locations instance) =>
     <String, dynamic>{
       'info': instance.info,
-      'locations': instance.locations,
+      'results': instance.locations,
     };

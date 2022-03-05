@@ -21,7 +21,9 @@ Characters _$CharactersFromJson(Map<String, dynamic> json) {
 class _$CharactersTearOff {
   const _$CharactersTearOff();
 
-  _Characters call({required Info info, required List<Character> characters}) {
+  _Characters call(
+      {required Info info,
+      @JsonKey(name: 'results') required List<Character> characters}) {
     return _Characters(
       info: info,
       characters: characters,
@@ -39,6 +41,7 @@ const $Characters = _$CharactersTearOff();
 /// @nodoc
 mixin _$Characters {
   Info get info => throw _privateConstructorUsedError;
+  @JsonKey(name: 'results')
   List<Character> get characters => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -52,7 +55,7 @@ abstract class $CharactersCopyWith<$Res> {
   factory $CharactersCopyWith(
           Characters value, $Res Function(Characters) then) =
       _$CharactersCopyWithImpl<$Res>;
-  $Res call({Info info, List<Character> characters});
+  $Res call({Info info, @JsonKey(name: 'results') List<Character> characters});
 
   $InfoCopyWith<$Res> get info;
 }
@@ -96,7 +99,7 @@ abstract class _$CharactersCopyWith<$Res> implements $CharactersCopyWith<$Res> {
           _Characters value, $Res Function(_Characters) then) =
       __$CharactersCopyWithImpl<$Res>;
   @override
-  $Res call({Info info, List<Character> characters});
+  $Res call({Info info, @JsonKey(name: 'results') List<Character> characters});
 
   @override
   $InfoCopyWith<$Res> get info;
@@ -133,7 +136,8 @@ class __$CharactersCopyWithImpl<$Res> extends _$CharactersCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Characters implements _Characters {
-  _$_Characters({required this.info, required this.characters});
+  _$_Characters(
+      {required this.info, @JsonKey(name: 'results') required this.characters});
 
   factory _$_Characters.fromJson(Map<String, dynamic> json) =>
       _$$_CharactersFromJson(json);
@@ -141,6 +145,7 @@ class _$_Characters implements _Characters {
   @override
   final Info info;
   @override
+  @JsonKey(name: 'results')
   final List<Character> characters;
 
   @override
@@ -175,8 +180,9 @@ class _$_Characters implements _Characters {
 
 abstract class _Characters implements Characters {
   factory _Characters(
-      {required Info info,
-      required List<Character> characters}) = _$_Characters;
+          {required Info info,
+          @JsonKey(name: 'results') required List<Character> characters}) =
+      _$_Characters;
 
   factory _Characters.fromJson(Map<String, dynamic> json) =
       _$_Characters.fromJson;
@@ -184,6 +190,7 @@ abstract class _Characters implements Characters {
   @override
   Info get info;
   @override
+  @JsonKey(name: 'results')
   List<Character> get characters;
   @override
   @JsonKey(ignore: true)

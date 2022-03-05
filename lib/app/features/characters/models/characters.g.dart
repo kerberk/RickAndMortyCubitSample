@@ -9,7 +9,7 @@ part of 'characters.dart';
 _$_Characters _$$_CharactersFromJson(Map<String, dynamic> json) =>
     _$_Characters(
       info: Info.fromJson(json['info'] as Map<String, dynamic>),
-      characters: (json['characters'] as List<dynamic>)
+      characters: (json['results'] as List<dynamic>)
           .map((e) => Character.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -17,5 +17,5 @@ _$_Characters _$$_CharactersFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$_CharactersToJson(_$_Characters instance) =>
     <String, dynamic>{
       'info': instance.info,
-      'characters': instance.characters,
+      'results': instance.characters,
     };

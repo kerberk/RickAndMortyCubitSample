@@ -9,7 +9,7 @@ part 'locations.g.dart';
 class Locations with _$Locations {
   factory Locations({
     required Info info,
-    required List<Location> locations,
+    @JsonKey(name: 'results') required List<Location> locations,
   }) = _Locations;
 
   factory Locations.fromJson(Map<String, dynamic> json) => _$LocationsFromJson(json);

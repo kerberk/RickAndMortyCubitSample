@@ -21,7 +21,9 @@ Episodes _$EpisodesFromJson(Map<String, dynamic> json) {
 class _$EpisodesTearOff {
   const _$EpisodesTearOff();
 
-  _Episodes call({required Info info, required List<Episode> episodes}) {
+  _Episodes call(
+      {required Info info,
+      @JsonKey(name: 'results') required List<Episode> episodes}) {
     return _Episodes(
       info: info,
       episodes: episodes,
@@ -39,6 +41,7 @@ const $Episodes = _$EpisodesTearOff();
 /// @nodoc
 mixin _$Episodes {
   Info get info => throw _privateConstructorUsedError;
+  @JsonKey(name: 'results')
   List<Episode> get episodes => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -51,7 +54,7 @@ mixin _$Episodes {
 abstract class $EpisodesCopyWith<$Res> {
   factory $EpisodesCopyWith(Episodes value, $Res Function(Episodes) then) =
       _$EpisodesCopyWithImpl<$Res>;
-  $Res call({Info info, List<Episode> episodes});
+  $Res call({Info info, @JsonKey(name: 'results') List<Episode> episodes});
 
   $InfoCopyWith<$Res> get info;
 }
@@ -94,7 +97,7 @@ abstract class _$EpisodesCopyWith<$Res> implements $EpisodesCopyWith<$Res> {
   factory _$EpisodesCopyWith(_Episodes value, $Res Function(_Episodes) then) =
       __$EpisodesCopyWithImpl<$Res>;
   @override
-  $Res call({Info info, List<Episode> episodes});
+  $Res call({Info info, @JsonKey(name: 'results') List<Episode> episodes});
 
   @override
   $InfoCopyWith<$Res> get info;
@@ -130,7 +133,8 @@ class __$EpisodesCopyWithImpl<$Res> extends _$EpisodesCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Episodes implements _Episodes {
-  _$_Episodes({required this.info, required this.episodes});
+  _$_Episodes(
+      {required this.info, @JsonKey(name: 'results') required this.episodes});
 
   factory _$_Episodes.fromJson(Map<String, dynamic> json) =>
       _$$_EpisodesFromJson(json);
@@ -138,6 +142,7 @@ class _$_Episodes implements _Episodes {
   @override
   final Info info;
   @override
+  @JsonKey(name: 'results')
   final List<Episode> episodes;
 
   @override
@@ -170,14 +175,16 @@ class _$_Episodes implements _Episodes {
 }
 
 abstract class _Episodes implements Episodes {
-  factory _Episodes({required Info info, required List<Episode> episodes}) =
-      _$_Episodes;
+  factory _Episodes(
+      {required Info info,
+      @JsonKey(name: 'results') required List<Episode> episodes}) = _$_Episodes;
 
   factory _Episodes.fromJson(Map<String, dynamic> json) = _$_Episodes.fromJson;
 
   @override
   Info get info;
   @override
+  @JsonKey(name: 'results')
   List<Episode> get episodes;
   @override
   @JsonKey(ignore: true)

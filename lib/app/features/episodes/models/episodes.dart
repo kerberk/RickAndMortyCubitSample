@@ -10,7 +10,7 @@ part 'episodes.g.dart';
 class Episodes with _$Episodes {
   factory Episodes({
     required Info info,
-    required List<Episode> episodes,
+    @JsonKey(name: 'results') required List<Episode> episodes,
   }) = _Episodes;
 
   factory Episodes.fromJson(Map<String, dynamic> json) => _$EpisodesFromJson(json);
