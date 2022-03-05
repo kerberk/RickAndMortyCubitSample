@@ -43,7 +43,7 @@ class EpisodesCubit extends Cubit<EpisodesState> {
 
       emit(EpisodesLoading(oldEpisodes, isFirstLoad: _episodesPage == 1));
 
-      var result = await _episodesRepository.getEpisodes(_episodesPage);
+      var result = await _episodesRepository.getEpisodesWithPage(_episodesPage);
 
       _allEpisodesInfo = result.info;
       _episodes.addAll(result.episodes);
@@ -62,7 +62,7 @@ class EpisodesCubit extends Cubit<EpisodesState> {
 
       emit(const EpisodesLoading([]));
 
-      var result = await _episodesRepository.getMultipleEpisodes(ids);
+      var result = await _episodesRepository.getEpisodesByIds(ids);
 
       _episodes = result;
 
@@ -112,7 +112,7 @@ class EpisodesCubit extends Cubit<EpisodesState> {
       emit(EpisodesLoading(oldEpisodes, isFirstLoad: _filteredEpisodesPage == 1));
 
       var episodeFilterOptions = EpisodeFilterOptions(episode: episode, name: name);
-      var result = await _episodesRepository.getFilteredEpisodes(episodeFilterOptions, _filteredEpisodesPage);
+      var result = await _episodesRepository.getEpisodesWithFilterAndPage(episodeFilterOptions, _filteredEpisodesPage);
 
       _allEpisodesInfo = result.info;
       _episodes.addAll(result.episodes);

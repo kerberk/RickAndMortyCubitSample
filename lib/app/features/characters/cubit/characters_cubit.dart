@@ -49,7 +49,7 @@ class CharactersCubit extends Cubit<CharactersState> {
 
       emit(CharactersLoading(oldCharacters, isFirstLoad: _charactersPage == 1));
 
-      var result = await _charactersRepository.getCharacters(_charactersPage);
+      var result = await _charactersRepository.getCharactersWithPage(_charactersPage);
 
       _allCharactersInfo = result.info;
       _characters.addAll(result.characters);
@@ -68,7 +68,7 @@ class CharactersCubit extends Cubit<CharactersState> {
 
       emit(const CharactersLoading([]));
 
-      var result = await _charactersRepository.getMultipleCharacters(ids);
+      var result = await _charactersRepository.getCharactersByIds(ids);
 
       _characters = result;
 
@@ -133,7 +133,8 @@ class CharactersCubit extends Cubit<CharactersState> {
 
       emit(CharactersLoading(oldCharacters, isFirstLoad: _filteredCharactersPage == 1));
 
-      var result = await _charactersRepository.getFilteredCharacters(_lastFilterOptions, _filteredCharactersPage);
+      var result =
+          await _charactersRepository.getCharactersWithFilterAndPage(_lastFilterOptions, _filteredCharactersPage);
 
       _allCharactersInfo = result.info;
       _characters.addAll(result.characters);

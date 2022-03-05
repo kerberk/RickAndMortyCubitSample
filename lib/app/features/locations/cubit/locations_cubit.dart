@@ -43,7 +43,7 @@ class LocationsCubit extends Cubit<LocationsState> {
 
       emit(LocationsLoading(oldLocations, isFirstLoad: _locationsPage == 1));
 
-      var result = await _locationsRepository.getLocations(_locationsPage);
+      var result = await _locationsRepository.getLocationsWithPage(_locationsPage);
 
       _allLocationsInfo = result.info;
       _locations.addAll(result.locations);
@@ -97,7 +97,7 @@ class LocationsCubit extends Cubit<LocationsState> {
 
       emit(LocationsLoading(oldLocations, isFirstLoad: _filteredLocationsPage == 1));
 
-      var result = await _locationsRepository.getFilteredLocations(_lastFilterOptions, _filteredLocationsPage);
+      var result = await _locationsRepository.getLocationsWithFilterAndPage(_lastFilterOptions, _filteredLocationsPage);
 
       _allLocationsInfo = result.info;
       _locations.addAll(result.locations);
