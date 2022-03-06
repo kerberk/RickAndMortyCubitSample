@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty_sample/app/constants/enums/character_gender.dart';
@@ -10,7 +11,9 @@ import 'package:rick_and_morty_sample/app/features/characters/models/character.d
 import 'package:rick_and_morty_sample/app/features/characters/repository/characters_rest_repository.dart';
 import 'package:rick_and_morty_sample/app/features/episodes/cubit/episodes_cubit.dart';
 import 'package:rick_and_morty_sample/app/features/episodes/repository/episodes_rest_repository.dart';
+import 'package:rick_and_morty_sample/app/features/settings/settings_view.dart';
 import 'package:rick_and_morty_sample/app/shared/widgets/circular_loading_indicator.dart';
+import 'package:rick_and_morty_sample/generated/locale_keys.g.dart';
 
 import 'character_detail_view.dart';
 
@@ -46,7 +49,15 @@ class _CharactersViewState extends State<CharactersView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Characters'),
+        title: Text(LocaleKeys.characters_appbar_title.tr()),
+        leading: GestureDetector(
+          onTap: () {
+            _handleRouteWithCallback();
+          },
+          child: const Icon(
+            Icons.settings,
+          ),
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
@@ -68,11 +79,12 @@ class _CharactersViewState extends State<CharactersView> {
             visible: _charactersCubitBloc.showFilterOptions,
             child: Column(
               children: [
-                _buildSearchInput(context, _searchNameTextController, 'Search for a name'),
+                _buildSearchInput(context, _searchNameTextController, LocaleKeys.characters_hints_search_name.tr()),
                 const SizedBox(height: 12),
-                _buildSearchInput(context, _searchSpeciesTextController, 'Search for a species'),
+                _buildSearchInput(
+                    context, _searchSpeciesTextController, LocaleKeys.characters_hints_search_species.tr()),
                 const SizedBox(height: 12),
-                _buildSearchInput(context, _searchTypeTextController, 'Search for a type'),
+                _buildSearchInput(context, _searchTypeTextController, LocaleKeys.characters_hints_search_type.tr()),
                 const SizedBox(height: 12),
                 _buildStatusFilterDropdown(context),
                 const SizedBox(height: 12),
@@ -114,7 +126,7 @@ class _CharactersViewState extends State<CharactersView> {
 
   Widget _buildStatusFilterDropdown(BuildContext context) {
     var dropDownMenuItems = <DropdownMenuItem<String>>[];
-    dropDownMenuItems.add(const DropdownMenuItem(value: '', child: Text('Please choose')));
+    dropDownMenuItems.add(DropdownMenuItem(value: '', child: Text(LocaleKeys.characters_hints_dropdown.tr())));
     dropDownMenuItems.addAll(
       CharacterStatus.values.map((CharacterStatus characterStatus) {
         return DropdownMenuItem<String>(
@@ -140,7 +152,7 @@ class _CharactersViewState extends State<CharactersView> {
 
   Widget _buildGenderFilterDropdown(BuildContext context) {
     var dropDownMenuItems = <DropdownMenuItem<String>>[];
-    dropDownMenuItems.add(const DropdownMenuItem(value: '', child: Text('Please choose')));
+    dropDownMenuItems.add(DropdownMenuItem(value: '', child: Text(LocaleKeys.characters_hints_dropdown.tr())));
     dropDownMenuItems.addAll(
       CharacterGender.values.map((CharacterGender characterGender) {
         return DropdownMenuItem<String>(
@@ -181,7 +193,7 @@ class _CharactersViewState extends State<CharactersView> {
           _selectedCharacterGender.toString(),
         );
       },
-      child: const Text('Search'),
+      child: Text(LocaleKeys.characters_buttons_search.tr()),
     );
   }
 
@@ -334,6 +346,20 @@ class _CharactersViewState extends State<CharactersView> {
   void _toggleFilter() {
     _charactersCubitBloc.showFilterOptions = !_charactersCubitBloc.showFilterOptions;
     setState(() {});
+  }
+
+  void _handleRouteWithCallback() async {
+    Map<String, dynamic>? callback = await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const SettingsView(),
+      ),
+    );
+
+    if (callback != null) {
+      if (callback.containsKey('reload') && callback['reload']) {
+        setState(() {});
+      }
+    }
   }
 
   @override

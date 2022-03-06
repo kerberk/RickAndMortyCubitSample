@@ -3,9 +3,9 @@ import 'package:rick_and_morty_sample/app/features/locations/models/location_fil
 import 'package:rick_and_morty_sample/app/features/locations/models/locations.dart';
 
 abstract class LocationsRepository {
-  Future<Locations> getLocations(int page);
+  Future<Locations> getLocationsWithPage(int page);
 
   Future<Location> getLocationById(int id);
 
-  Future<Locations> getFilteredLocations(LocationFilterOptions locationFilterOptions, int page);
+  Future<Locations> getLocationsWithFilterAndPage(LocationFilterOptions locationFilterOptions, int page);
 }

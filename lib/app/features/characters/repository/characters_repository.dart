@@ -3,11 +3,11 @@ import 'package:rick_and_morty_sample/app/features/characters/models/character_f
 import 'package:rick_and_morty_sample/app/features/characters/models/characters.dart';
 
 abstract class CharactersRepository {
-  Future<Characters> getCharacters(int page);
+  Future<Characters> getCharactersWithPage(int page);
 
   Future<Character> getCharacterById(int id);
 
-  Future<List<Character>> getMultipleCharacters(List<int> ids);
+  Future<List<Character>> getCharactersByIds(List<int> ids);
 
-  Future<Characters> getFilteredCharacters(CharacterFilterOptions characterFilterOptions, int page);
+  Future<Characters> getCharactersWithFilterAndPage(CharacterFilterOptions characterFilterOptions, int page);
 }

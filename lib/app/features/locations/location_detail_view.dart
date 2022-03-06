@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty_sample/app/features/characters/cubit/characters_cubit.dart';
 import 'package:rick_and_morty_sample/app/features/characters/models/character.dart';
@@ -6,6 +7,7 @@ import 'package:rick_and_morty_sample/app/features/locations/cubit/location_deta
 import 'package:rick_and_morty_sample/app/features/locations/models/location.dart';
 import 'package:rick_and_morty_sample/app/shared/widgets/character_item_in_details.dart';
 import 'package:rick_and_morty_sample/app/shared/widgets/circular_loading_indicator.dart';
+import 'package:rick_and_morty_sample/generated/locale_keys.g.dart';
 
 class LocationDetailView extends StatefulWidget {
   const LocationDetailView({Key? key}) : super(key: key);
@@ -77,10 +79,10 @@ class _LocationDetailViewState extends State<LocationDetailView> {
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text('Type:'),
-                      SizedBox(height: 12.0),
-                      Text('Dimension:'),
+                    children: [
+                      Text('${LocaleKeys.locations_label_type.tr()}:'),
+                      const SizedBox(height: 12.0),
+                      Text('${LocaleKeys.locations_label_dimension.tr()}:'),
                     ],
                   ),
                   const SizedBox(width: 12.0),
@@ -95,9 +97,9 @@ class _LocationDetailViewState extends State<LocationDetailView> {
                 ],
               ),
               const SizedBox(height: 20.0),
-              const Text(
-                'Residents of this location:',
-                style: TextStyle(
+              Text(
+                '${LocaleKeys.locations_label_residents.tr()}:',
+                style: const TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
                 ),

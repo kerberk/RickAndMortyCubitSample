@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:meta/meta.dart';
 import 'package:rick_and_morty_sample/app/features/episodes/models/episode.dart';
 import 'package:rick_and_morty_sample/app/features/episodes/repository/episodes_repository.dart';
+import 'package:rick_and_morty_sample/generated/locale_keys.g.dart';
 
 part 'episode_detail_state.dart';
 
@@ -22,7 +24,7 @@ class EpisodeDetailCubit extends Cubit<EpisodeDetailState> {
 
       emit(EpisodeDetailLoaded(result));
     } catch (e) {
-      emit(const EpisodeDetailError('Couldn\'t load data'));
+      emit(EpisodeDetailError(LocaleKeys.error_loading_data.tr()));
     }
   }
 }

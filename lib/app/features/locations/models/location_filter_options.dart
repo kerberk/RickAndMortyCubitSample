@@ -1,11 +1,12 @@
-class LocationFilterOptions {
-  final String? name;
-  final String? type;
-  final String? dimension;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  LocationFilterOptions({
-    this.name = '',
-    this.type = '',
-    this.dimension = '',
-  });
+part 'location_filter_options.freezed.dart';
+
+@freezed
+class LocationFilterOptions with _$LocationFilterOptions {
+  factory LocationFilterOptions({
+    required String name,
+    required String type,
+    required String dimension,
+  }) = _LocationFilterOptions;
 }

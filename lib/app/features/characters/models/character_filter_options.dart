@@ -1,15 +1,14 @@
-class CharacterFilterOptions {
-  final String? name;
-  final String? status;
-  final String? species;
-  final String? type;
-  final String? gender;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  CharacterFilterOptions({
-    this.name = '',
-    this.status = '',
-    this.species = '',
-    this.type = '',
-    this.gender = '',
-  });
+part 'character_filter_options.freezed.dart';
+
+@freezed
+class CharacterFilterOptions with _$CharacterFilterOptions {
+  factory CharacterFilterOptions({
+    required String name,
+    required String status,
+    required String species,
+    required String type,
+    required String gender,
+  }) = _CharacterFilterOptions;
 }

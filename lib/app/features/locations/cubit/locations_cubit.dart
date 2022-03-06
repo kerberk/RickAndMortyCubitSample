@@ -1,9 +1,11 @@
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:meta/meta.dart';
 import 'package:rick_and_morty_sample/app/features/locations/models/location.dart';
 import 'package:rick_and_morty_sample/app/features/locations/models/location_filter_options.dart';
 import 'package:rick_and_morty_sample/app/features/locations/repository/locations_repository.dart';
 import 'package:rick_and_morty_sample/app/shared/models/info.dart';
+import 'package:rick_and_morty_sample/generated/locale_keys.g.dart';
 
 part 'locations_state.dart';
 
@@ -43,7 +45,7 @@ class LocationsCubit extends Cubit<LocationsState> {
 
       emit(LocationsLoading(oldLocations, isFirstLoad: _locationsPage == 1));
 
-      var result = await _locationsRepository.getLocations(_locationsPage);
+      var result = await _locationsRepository.getLocationsWithPage(_locationsPage);
 
       _allLocationsInfo = result.info;
       _locations.addAll(result.locations);
@@ -52,7 +54,7 @@ class LocationsCubit extends Cubit<LocationsState> {
 
       _locationsPage++;
     } catch (e) {
-      emit(const LocationsError('Couldn\'t load data'));
+      emit(LocationsError(LocaleKeys.error_loading_data.tr()));
     }
   }
 
@@ -97,7 +99,7 @@ class LocationsCubit extends Cubit<LocationsState> {
 
       emit(LocationsLoading(oldLocations, isFirstLoad: _filteredLocationsPage == 1));
 
-      var result = await _locationsRepository.getFilteredLocations(_lastFilterOptions, _filteredLocationsPage);
+      var result = await _locationsRepository.getLocationsWithFilterAndPage(_lastFilterOptions, _filteredLocationsPage);
 
       _allLocationsInfo = result.info;
       _locations.addAll(result.locations);
@@ -106,7 +108,7 @@ class LocationsCubit extends Cubit<LocationsState> {
 
       _filteredLocationsPage++;
     } catch (e) {
-      emit(const LocationsError('Couldn\'t load data'));
+      emit(LocationsError(LocaleKeys.error_loading_data.tr()));
     }
   }
 }

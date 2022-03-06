@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty_sample/app/features/characters/cubit/characters_cubit.dart';
@@ -6,6 +7,7 @@ import 'package:rick_and_morty_sample/app/features/episodes/cubit/episode_detail
 import 'package:rick_and_morty_sample/app/features/episodes/models/episode.dart';
 import 'package:rick_and_morty_sample/app/shared/widgets/character_item_in_details.dart';
 import 'package:rick_and_morty_sample/app/shared/widgets/circular_loading_indicator.dart';
+import 'package:rick_and_morty_sample/generated/locale_keys.g.dart';
 
 class EpisodeDetailView extends StatefulWidget {
   const EpisodeDetailView({Key? key}) : super(key: key);
@@ -77,10 +79,10 @@ class _EpisodeDetailViewState extends State<EpisodeDetailView> {
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text('Episode:'),
-                      SizedBox(height: 12.0),
-                      Text('Air Date:'),
+                    children: [
+                      Text('${LocaleKeys.episodes_label_episode.tr()}:'),
+                      const SizedBox(height: 12.0),
+                      Text('${LocaleKeys.episodes_label_air_date.tr()}:'),
                     ],
                   ),
                   const SizedBox(width: 12.0),
@@ -95,9 +97,9 @@ class _EpisodeDetailViewState extends State<EpisodeDetailView> {
                 ],
               ),
               const SizedBox(height: 20.0),
-              const Text(
-                'Characters in this episode:',
-                style: TextStyle(
+              Text(
+                '${LocaleKeys.episodes_label_characters_in_episode.tr()}:',
+                style: const TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
                 ),

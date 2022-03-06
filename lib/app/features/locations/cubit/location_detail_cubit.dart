@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:meta/meta.dart';
 import 'package:rick_and_morty_sample/app/features/locations/models/location.dart';
 import 'package:rick_and_morty_sample/app/features/locations/repository/locations_repository.dart';
+import 'package:rick_and_morty_sample/generated/locale_keys.g.dart';
 
 part 'location_detail_state.dart';
 
@@ -22,7 +24,7 @@ class LocationDetailCubit extends Cubit<LocationDetailState> {
 
       emit(LocationDetailLoaded(result));
     } catch (e) {
-      emit(const LocationDetailError('Couldn\'t load data'));
+      emit(LocationDetailError(LocaleKeys.error_loading_data.tr()));
     }
   }
 }
