@@ -1,8 +1,23 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty_sample/app/features/home/home_view.dart';
+import 'package:rick_and_morty_sample/generated/codegen_loader.g.dart';
 
-void main() {
-  runApp(const RickAndMortyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
+  runApp(EasyLocalization(
+    child: const RickAndMortyApp(),
+    supportedLocales: const [
+      Locale('en', 'US'),
+      Locale('de', 'DE'),
+    ],
+    path: 'assets/translations',
+    fallbackLocale: const Locale('en', 'US'),
+    assetLoader: const CodegenLoader(),
+    saveLocale: true,
+  ));
 }
 
 class RickAndMortyApp extends StatelessWidget {
@@ -10,11 +25,26 @@ class RickAndMortyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    rebuildAllChildren(context);
+
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: const HomeView(),
     );
+  }
+
+  void rebuildAllChildren(BuildContext context) {
+    void rebuild(Element el) {
+      el.markNeedsBuild();
+      el.visitChildren(rebuild);
+    }
+
+    (context as Element).visitChildren(rebuild);
   }
 }

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:rick_and_morty_sample/app/constants/api_path.dart';
 import 'package:rick_and_morty_sample/app/features/locations/models/location.dart';
 import 'package:rick_and_morty_sample/app/features/locations/models/location_filter_options.dart';

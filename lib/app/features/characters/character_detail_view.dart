@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty_sample/app/constants/enums/character_status.dart';
@@ -11,6 +12,7 @@ import 'package:rick_and_morty_sample/app/features/episodes/episode_detail_view.
 import 'package:rick_and_morty_sample/app/features/episodes/models/episode.dart';
 import 'package:rick_and_morty_sample/app/features/episodes/repository/episodes_rest_repository.dart';
 import 'package:rick_and_morty_sample/app/shared/widgets/circular_loading_indicator.dart';
+import 'package:rick_and_morty_sample/generated/locale_keys.g.dart';
 
 class CharacterDetailView extends StatefulWidget {
   const CharacterDetailView({Key? key}) : super(key: key);
@@ -104,22 +106,22 @@ class _CharacterDetailViewState extends State<CharacterDetailView> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Gender:'),
+                      Text('${LocaleKeys.characters_label_gender.tr()}:'),
                       const SizedBox(height: 12.0),
-                      const Text('Species:'),
+                      Text('${LocaleKeys.characters_label_species.tr()}:'),
                       Visibility(
                         visible: character.type != '',
                         child: Column(
-                          children: const [
-                            SizedBox(height: 12.0),
-                            Text('Type:'),
+                          children: [
+                            const SizedBox(height: 12.0),
+                            Text('${LocaleKeys.characters_label_type.tr()}:'),
                           ],
                         ),
                       ),
                       const SizedBox(height: 12.0),
-                      const Text('Origin:'),
+                      Text('${LocaleKeys.characters_label_origin.tr()}:'),
                       const SizedBox(height: 12.0),
-                      const Text('Location:'),
+                      Text('${LocaleKeys.characters_label_location.tr()}:'),
                       const SizedBox(height: 12.0),
                     ],
                   ),
@@ -149,9 +151,9 @@ class _CharacterDetailViewState extends State<CharacterDetailView> {
                 ],
               ),
               const SizedBox(height: 12.0),
-              const Text(
-                'Episodes:',
-                style: TextStyle(
+              Text(
+                '${LocaleKeys.characters_label_episodes.tr()}:',
+                style: const TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
                 ),

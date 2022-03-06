@@ -1,9 +1,11 @@
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:meta/meta.dart';
 import 'package:rick_and_morty_sample/app/features/episodes/models/episode.dart';
 import 'package:rick_and_morty_sample/app/features/episodes/models/episode_filter_options.dart';
 import 'package:rick_and_morty_sample/app/features/episodes/repository/episodes_repository.dart';
 import 'package:rick_and_morty_sample/app/shared/models/info.dart';
+import 'package:rick_and_morty_sample/generated/locale_keys.g.dart';
 
 part 'episodes_state.dart';
 
@@ -52,7 +54,7 @@ class EpisodesCubit extends Cubit<EpisodesState> {
 
       _episodesPage++;
     } catch (e) {
-      emit(const EpisodesError('Couldn\'t load data'));
+      emit(EpisodesError(LocaleKeys.error_loading_data.tr()));
     }
   }
 
@@ -68,7 +70,7 @@ class EpisodesCubit extends Cubit<EpisodesState> {
 
       emit(EpisodesLoaded(_episodes));
     } catch (e) {
-      emit(const EpisodesError('Couldn\'t load data'));
+      emit(EpisodesError(LocaleKeys.error_loading_data.tr()));
     }
   }
 
@@ -121,7 +123,7 @@ class EpisodesCubit extends Cubit<EpisodesState> {
 
       _filteredEpisodesPage++;
     } catch (e) {
-      emit(const EpisodesError('Couldn\'t load data'));
+      emit(EpisodesError(LocaleKeys.error_loading_data.tr()));
     }
   }
 }

@@ -33,6 +33,11 @@ gen: ## Generates the assets
 	@flutter pub get
 	@flutter packages pub run build_runner build
 
+gen_translation: ## Generates translation files
+	@echo "Generating the translation files..."
+	@flutter pub run easy_localization:generate -S assets/translations
+	@flutter pub run easy_localization:generate -S assets/translations -f keys -o locale_keys.g.dart
+
 format: ## Formats the code
 	@echo "Formatting the code"
 	@dart format lib .

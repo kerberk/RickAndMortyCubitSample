@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:rick_and_morty_sample/app/constants/api_path.dart';
 import 'package:rick_and_morty_sample/app/features/episodes/models/episodes.dart';
 import 'package:rick_and_morty_sample/app/features/episodes/models/episode_filter_options.dart';
