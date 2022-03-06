@@ -10,6 +10,7 @@ import 'package:rick_and_morty_sample/app/features/locations/cubit/locations_cub
 import 'package:rick_and_morty_sample/app/features/locations/location_detail_view.dart';
 import 'package:rick_and_morty_sample/app/features/locations/models/location.dart';
 import 'package:rick_and_morty_sample/app/features/locations/repository/locations_rest_repository.dart';
+import 'package:rick_and_morty_sample/app/features/settings/settings_view.dart';
 import 'package:rick_and_morty_sample/app/shared/widgets/circular_loading_indicator.dart';
 import 'package:rick_and_morty_sample/generated/locale_keys.g.dart';
 
@@ -43,6 +44,14 @@ class _LocationsViewState extends State<LocationsView> {
     return Scaffold(
       appBar: AppBar(
         title: Text(LocaleKeys.locations_appbar_title.tr()),
+        leading: GestureDetector(
+          onTap: () {
+            _handleRouteWithCallback();
+          },
+          child: const Icon(
+            Icons.settings,
+          ),
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
@@ -272,6 +281,20 @@ class _LocationsViewState extends State<LocationsView> {
   void _toggleFilter() {
     _locationsCubitBloc.showFilterOptions = !_locationsCubitBloc.showFilterOptions;
     setState(() {});
+  }
+
+  void _handleRouteWithCallback() async {
+    Map<String, dynamic>? callback = await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const SettingsView(),
+      ),
+    );
+
+    if (callback != null) {
+      if (callback.containsKey('reload') && callback['reload']) {
+        setState(() {});
+      }
+    }
   }
 
   @override

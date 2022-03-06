@@ -51,6 +51,7 @@
     },
     "settings": {
         "appbar_title": "Settings",
+        "dropdown_label_set_language": "Choose language",
         "dropdown_item_english": "English",
         "dropdown_item_german": "German",
         "hints": {

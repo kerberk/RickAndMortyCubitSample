@@ -44,9 +44,11 @@ class _EpisodesViewState extends State<EpisodesView> {
       appBar: AppBar(
         title: Text(LocaleKeys.episodes_appbar_title.tr()),
         leading: GestureDetector(
-          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SettingsView())),
+          onTap: () {
+            _handleRouteWithCallback();
+          },
           child: const Icon(
-            Icons.menu,
+            Icons.settings,
           ),
         ),
         actions: [
@@ -258,6 +260,20 @@ class _EpisodesViewState extends State<EpisodesView> {
   void _toggleFilter() {
     _episodesCubit.showFilterOptions = !_episodesCubit.showFilterOptions;
     setState(() {});
+  }
+
+  void _handleRouteWithCallback() async {
+    Map<String, dynamic>? callback = await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const SettingsView(),
+      ),
+    );
+
+    if (callback != null) {
+      if (callback.containsKey('reload') && callback['reload']) {
+        setState(() {});
+      }
+    }
   }
 
   @override

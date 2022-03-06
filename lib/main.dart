@@ -25,7 +25,7 @@ class RickAndMortyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    rebuildAllChildren(context);
+    // rebuildAllChildren(context);
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -39,12 +39,12 @@ class RickAndMortyApp extends StatelessWidget {
     );
   }
 
-  void rebuildAllChildren(BuildContext context) {
-    void rebuild(Element el) {
-      el.markNeedsBuild();
-      el.visitChildren(rebuild);
-    }
+  // void rebuildAllChildren(BuildContext context) {
+  //   void rebuild(Element el) {
+  //     el.markNeedsBuild();
+  //     el.visitChildren(rebuild);
+  //   }
 
-    (context as Element).visitChildren(rebuild);
-  }
+  //   (context as Element).visitChildren(rebuild);
+  // }
 }

@@ -10,44 +10,77 @@ class SettingsView extends StatefulWidget {
 }
 
 class _SettingsViewState extends State<SettingsView> {
+  bool _initialBuild = true;
+  String _initialLanguageCode = '';
+  String _selectedLanguageCode = '';
+
   @override
   Widget build(BuildContext context) {
+    if (_initialBuild) {
+      _initialLanguageCode = context.locale.languageCode;
+      _selectedLanguageCode = _initialLanguageCode;
+      _initialBuild = false;
+    }
+
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.of(context).pop({"reload": _initialLanguageCode != _selectedLanguageCode}),
+        ),
         title: Text(LocaleKeys.settings_appbar_title.tr()),
       ),
-      body: Column(
-        children: [
-          _buildLanguageDropdown(context),
-        ],
+      body: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
+        child: Column(
+          children: [
+            _buildLanguageDropdown(context),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildLanguageDropdown(BuildContext context) {
-    var dropDownMenuItems = <DropdownMenuItem<String>>[];
-    dropDownMenuItems.add(DropdownMenuItem(value: '', child: Text(LocaleKeys.settings_hints_dropdown.tr())));
-    dropDownMenuItems
-        .add(DropdownMenuItem(value: 'en-US', child: Text(LocaleKeys.settings_dropdown_item_english.tr())));
-    dropDownMenuItems.add(DropdownMenuItem(value: 'de-DE', child: Text(LocaleKeys.settings_dropdown_item_german.tr())));
+    var dropDownMenuItems = <DropdownMenuItem<String>>[
+      DropdownMenuItem(
+        value: 'en',
+        child: Text(LocaleKeys.settings_dropdown_item_english.tr()),
+      ),
+      DropdownMenuItem(
+        value: 'de',
+        child: Text(LocaleKeys.settings_dropdown_item_german.tr()),
+      ),
+    ];
 
-    return DropdownButton<String>(
-      onChanged: (String? newValue) {
-        if (newValue != null) {
-          switch (newValue) {
-            case 'en-US':
-              context.setLocale(context.supportedLocales[0]);
-              break;
-            case 'de-DE':
-              context.setLocale(context.supportedLocales[1]);
-              break;
-            default:
-              context.setLocale(context.supportedLocales[0]);
-              break;
-          }
-        }
-      },
-      items: dropDownMenuItems,
+    return Row(
+      children: [
+        Text('${LocaleKeys.settings_dropdown_label_set_language.tr()}:'),
+        const SizedBox(width: 12.0),
+        DropdownButton<String>(
+          value: _selectedLanguageCode,
+          onChanged: (String? newValue) {
+            if (newValue != null) {
+              setState(() {
+                _selectedLanguageCode = newValue;
+              });
+
+              switch (newValue) {
+                case 'en':
+                  context.setLocale(context.supportedLocales[0]);
+                  break;
+                case 'de':
+                  context.setLocale(context.supportedLocales[1]);
+                  break;
+                default:
+                  context.setLocale(context.supportedLocales[0]);
+                  break;
+              }
+            }
+          },
+          items: dropDownMenuItems,
+        ),
+      ],
     );
   }
 }

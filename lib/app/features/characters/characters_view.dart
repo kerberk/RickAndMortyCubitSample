@@ -11,6 +11,7 @@ import 'package:rick_and_morty_sample/app/features/characters/models/character.d
 import 'package:rick_and_morty_sample/app/features/characters/repository/characters_rest_repository.dart';
 import 'package:rick_and_morty_sample/app/features/episodes/cubit/episodes_cubit.dart';
 import 'package:rick_and_morty_sample/app/features/episodes/repository/episodes_rest_repository.dart';
+import 'package:rick_and_morty_sample/app/features/settings/settings_view.dart';
 import 'package:rick_and_morty_sample/app/shared/widgets/circular_loading_indicator.dart';
 import 'package:rick_and_morty_sample/generated/locale_keys.g.dart';
 
@@ -49,6 +50,14 @@ class _CharactersViewState extends State<CharactersView> {
     return Scaffold(
       appBar: AppBar(
         title: Text(LocaleKeys.characters_appbar_title.tr()),
+        leading: GestureDetector(
+          onTap: () {
+            _handleRouteWithCallback();
+          },
+          child: const Icon(
+            Icons.settings,
+          ),
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
@@ -337,6 +346,20 @@ class _CharactersViewState extends State<CharactersView> {
   void _toggleFilter() {
     _charactersCubitBloc.showFilterOptions = !_charactersCubitBloc.showFilterOptions;
     setState(() {});
+  }
+
+  void _handleRouteWithCallback() async {
+    Map<String, dynamic>? callback = await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const SettingsView(),
+      ),
+    );
+
+    if (callback != null) {
+      if (callback.containsKey('reload') && callback['reload']) {
+        setState(() {});
+      }
+    }
   }
 
   @override

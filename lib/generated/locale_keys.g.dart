@@ -42,6 +42,7 @@ abstract class  LocaleKeys {
   static const locations_buttons = 'locations.buttons';
   static const locations = 'locations';
   static const settings_appbar_title = 'settings.appbar_title';
+  static const settings_dropdown_label_set_language = 'settings.dropdown_label_set_language';
   static const settings_dropdown_item_english = 'settings.dropdown_item_english';
   static const settings_dropdown_item_german = 'settings.dropdown_item_german';
   static const settings_hints_dropdown = 'settings.hints.dropdown';

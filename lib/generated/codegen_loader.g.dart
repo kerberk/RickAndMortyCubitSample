@@ -67,6 +67,7 @@ class CodegenLoader extends AssetLoader{
   },
   "settings": {
     "appbar_title": "Einstellungen",
+    "dropdown_label_set_language": "Sprache wählen",
     "dropdown_item_english": "Englisch",
     "dropdown_item_german": "Deutsch",
     "hints": {
@@ -128,6 +129,7 @@ static const Map<String,dynamic> en_US = {
   },
   "settings": {
     "appbar_title": "Settings",
+    "dropdown_label_set_language": "Choose language",
     "dropdown_item_english": "English",
     "dropdown_item_german": "German",
     "hints": {
