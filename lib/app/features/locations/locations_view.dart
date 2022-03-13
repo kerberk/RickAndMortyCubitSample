@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,11 +15,19 @@ import 'package:rick_and_morty_sample/app/features/settings/settings_view.dart';
 import 'package:rick_and_morty_sample/app/shared/widgets/circular_loading_indicator.dart';
 import 'package:rick_and_morty_sample/generated/locale_keys.g.dart';
 
-class LocationsView extends StatefulWidget {
+class LocationsView extends StatefulWidget implements AutoRouteWrapper {
   const LocationsView({Key? key}) : super(key: key);
 
   @override
   State<LocationsView> createState() => _LocationsViewState();
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return BlocProvider<LocationsCubit>(
+      create: (context) => LocationsCubit(LocationsRestRepository()),
+      child: this,
+    );
+  }
 }
 
 class _LocationsViewState extends State<LocationsView> {
@@ -216,13 +225,13 @@ class _LocationsViewState extends State<LocationsView> {
           builder: (context) => MultiBlocProvider(
             providers: [
               BlocProvider<LocationDetailCubit>(
-                create: (context) => LocationDetailCubit(LocationsRestRepository(), location.id),
+                create: (context) => LocationDetailCubit(LocationsRestRepository()),
               ),
               BlocProvider<CharactersCubit>(
                 create: (context) => CharactersCubit(CharactersRestRepository()),
               ),
             ],
-            child: const LocationDetailView(),
+            child: LocationDetailView(locationId: location.id),
           ),
         ),
       ),

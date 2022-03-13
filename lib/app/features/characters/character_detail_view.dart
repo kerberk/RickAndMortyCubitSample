@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +16,12 @@ import 'package:rick_and_morty_sample/app/shared/widgets/circular_loading_indica
 import 'package:rick_and_morty_sample/generated/locale_keys.g.dart';
 
 class CharacterDetailView extends StatefulWidget {
-  const CharacterDetailView({Key? key}) : super(key: key);
+  final int charaterId;
+
+  const CharacterDetailView({
+    Key? key,
+    @PathParam() required this.charaterId,
+  }) : super(key: key);
 
   @override
   State<CharacterDetailView> createState() => _CharacterDetailViewState();
@@ -30,7 +36,7 @@ class _CharacterDetailViewState extends State<CharacterDetailView> {
     super.initState();
 
     _characterDetailCubitBloc = BlocProvider.of<CharacterDetailCubit>(context);
-    _characterDetailCubitBloc.getCharacterById();
+    _characterDetailCubitBloc.getCharacterById(widget.charaterId);
 
     _episodesCubit = BlocProvider.of<EpisodesCubit>(context);
   }
@@ -227,13 +233,13 @@ class _CharacterDetailViewState extends State<CharacterDetailView> {
           builder: (context) => MultiBlocProvider(
             providers: [
               BlocProvider<EpisodeDetailCubit>(
-                create: (context) => EpisodeDetailCubit(EpisodesRestRepository(), episode.id),
+                create: (context) => EpisodeDetailCubit(EpisodesRestRepository()),
               ),
               BlocProvider<CharactersCubit>(
                 create: (context) => CharactersCubit(CharactersRestRepository()),
               ),
             ],
-            child: const EpisodeDetailView(),
+            child: EpisodeDetailView(episodeId: episode.id),
           ),
         ),
       ),

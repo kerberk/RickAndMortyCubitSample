@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,11 +18,19 @@ import 'package:rick_and_morty_sample/generated/locale_keys.g.dart';
 
 import 'character_detail_view.dart';
 
-class CharactersView extends StatefulWidget {
+class CharactersView extends StatefulWidget implements AutoRouteWrapper {
   const CharactersView({Key? key}) : super(key: key);
 
   @override
   State<CharactersView> createState() => _CharactersViewState();
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return BlocProvider<CharactersCubit>(
+      create: (context) => CharactersCubit(CharactersRestRepository()),
+      child: this,
+    );
+  }
 }
 
 class _CharactersViewState extends State<CharactersView> {
@@ -280,13 +289,13 @@ class _CharactersViewState extends State<CharactersView> {
             builder: (context) => MultiBlocProvider(
               providers: [
                 BlocProvider<CharacterDetailCubit>(
-                  create: (context) => CharacterDetailCubit(CharactersRestRepository(), character.id),
+                  create: (context) => CharacterDetailCubit(CharactersRestRepository()),
                 ),
                 BlocProvider<EpisodesCubit>(
                   create: (context) => EpisodesCubit(EpisodesRestRepository()),
                 ),
               ],
-              child: const CharacterDetailView(),
+              child: CharacterDetailView(charaterId: character.id),
             ),
           ),
         ),

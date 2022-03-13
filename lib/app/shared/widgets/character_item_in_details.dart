@@ -20,13 +20,13 @@ class CharacterItemInDetails extends StatelessWidget {
           builder: (context) => MultiBlocProvider(
             providers: [
               BlocProvider<CharacterDetailCubit>(
-                create: (context) => CharacterDetailCubit(CharactersRestRepository(), _character.id),
+                create: (context) => CharacterDetailCubit(CharactersRestRepository()),
               ),
               BlocProvider<EpisodesCubit>(
                 create: (context) => EpisodesCubit(EpisodesRestRepository()),
               ),
             ],
-            child: const CharacterDetailView(),
+            child: CharacterDetailView(charaterId: _character.id),
           ),
         ),
       ),

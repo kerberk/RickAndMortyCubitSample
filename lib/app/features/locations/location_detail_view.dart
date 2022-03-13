@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +11,12 @@ import 'package:rick_and_morty_sample/app/shared/widgets/circular_loading_indica
 import 'package:rick_and_morty_sample/generated/locale_keys.g.dart';
 
 class LocationDetailView extends StatefulWidget {
-  const LocationDetailView({Key? key}) : super(key: key);
+  final int locationId;
+
+  const LocationDetailView({
+    Key? key,
+    @PathParam() required this.locationId,
+  }) : super(key: key);
 
   @override
   State<LocationDetailView> createState() => _LocationDetailViewState();
@@ -25,7 +31,7 @@ class _LocationDetailViewState extends State<LocationDetailView> {
     super.initState();
 
     _locationDetailCubit = BlocProvider.of<LocationDetailCubit>(context);
-    _locationDetailCubit.getLocationById();
+    _locationDetailCubit.getLocationById(widget.locationId);
 
     _charactersCubit = BlocProvider.of<CharactersCubit>(context);
   }

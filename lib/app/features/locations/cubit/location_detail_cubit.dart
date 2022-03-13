@@ -10,17 +10,15 @@ part 'location_detail_state.dart';
 class LocationDetailCubit extends Cubit<LocationDetailState> {
   final LocationsRepository _locationsRepository;
 
-  final int _id;
+  LocationDetailCubit(this._locationsRepository) : super(const LocationDetailInitial());
 
-  LocationDetailCubit(this._locationsRepository, this._id) : super(const LocationDetailInitial());
-
-  Future<void> getLocationById() async {
+  Future<void> getLocationById(id) async {
     try {
       if (state is LocationDetailLoading) return;
 
       emit(const LocationDetailLoading());
 
-      var result = await _locationsRepository.getLocationById(_id);
+      var result = await _locationsRepository.getLocationById(id);
 
       emit(LocationDetailLoaded(result));
     } catch (e) {

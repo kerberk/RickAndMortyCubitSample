@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +11,12 @@ import 'package:rick_and_morty_sample/app/shared/widgets/circular_loading_indica
 import 'package:rick_and_morty_sample/generated/locale_keys.g.dart';
 
 class EpisodeDetailView extends StatefulWidget {
-  const EpisodeDetailView({Key? key}) : super(key: key);
+  final int episodeId;
+
+  const EpisodeDetailView({
+    Key? key,
+    @PathParam() required this.episodeId,
+  }) : super(key: key);
 
   @override
   State<EpisodeDetailView> createState() => _EpisodeDetailViewState();
@@ -25,7 +31,7 @@ class _EpisodeDetailViewState extends State<EpisodeDetailView> {
     super.initState();
 
     _episodeDetailCubit = BlocProvider.of<EpisodeDetailCubit>(context);
-    _episodeDetailCubit.getEpisodeById();
+    _episodeDetailCubit.getEpisodeById(id: widget.episodeId);
 
     _charactersCubit = BlocProvider.of<CharactersCubit>(context);
   }

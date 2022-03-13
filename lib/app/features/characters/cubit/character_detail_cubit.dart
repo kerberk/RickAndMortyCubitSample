@@ -10,17 +10,15 @@ part 'character_detail_state.dart';
 class CharacterDetailCubit extends Cubit<CharacterDetailState> {
   final CharactersRepository _charactersRepository;
 
-  final int _id;
+  CharacterDetailCubit(this._charactersRepository) : super(const CharacterDetailInitial());
 
-  CharacterDetailCubit(this._charactersRepository, this._id) : super(const CharacterDetailInitial());
-
-  Future<void> getCharacterById() async {
+  Future<void> getCharacterById(int id) async {
     try {
       if (state is CharacterDetailLoading) return;
 
       emit(const CharacterDetailLoading());
 
-      var result = await _charactersRepository.getCharacterById(_id);
+      var result = await _charactersRepository.getCharacterById(id);
 
       emit(CharacterDetailLoaded(result));
     } catch (e) {
@@ -28,13 +26,13 @@ class CharacterDetailCubit extends Cubit<CharacterDetailState> {
     }
   }
 
-  Future<void> getEpisodeById() async {
+  Future<void> getEpisodeById(int id) async {
     try {
       if (state is CharacterDetailLoading) return;
 
       emit(const CharacterDetailLoading());
 
-      var result = await _charactersRepository.getCharacterById(_id);
+      var result = await _charactersRepository.getCharacterById(id);
 
       emit(CharacterDetailLoaded(result));
     } catch (e) {

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty_sample/app/features/home/home_view.dart';
+import 'package:rick_and_morty_sample/app/routes/router.gr.dart';
 import 'package:rick_and_morty_sample/generated/codegen_loader.g.dart';
 
 void main() async {
@@ -25,9 +26,11 @@ class RickAndMortyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // rebuildAllChildren(context);
+    final _appRouter = AppRouter();
 
-    return MaterialApp(
+    return MaterialApp.router(
+      routeInformationParser: _appRouter.defaultRouteParser(),
+      routerDelegate: _appRouter.delegate(),
       debugShowCheckedModeBanner: false,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
@@ -35,16 +38,6 @@ class RickAndMortyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomeView(),
     );
   }
-
-  // void rebuildAllChildren(BuildContext context) {
-  //   void rebuild(Element el) {
-  //     el.markNeedsBuild();
-  //     el.visitChildren(rebuild);
-  //   }
-
-  //   (context as Element).visitChildren(rebuild);
-  // }
 }
