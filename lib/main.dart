@@ -8,7 +8,7 @@ void main() async {
   await EasyLocalization.ensureInitialized();
 
   runApp(EasyLocalization(
-    child: const RickAndMortyApp(),
+    child: RickAndMortyApp(),
     supportedLocales: const [
       Locale('en', 'US'),
       Locale('de', 'DE'),
@@ -21,12 +21,12 @@ void main() async {
 }
 
 class RickAndMortyApp extends StatelessWidget {
-  const RickAndMortyApp({Key? key}) : super(key: key);
+  final _appRouter = AppRouter();
+
+  RickAndMortyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _appRouter = AppRouter();
-
     return MaterialApp.router(
       routeInformationParser: _appRouter.defaultRouteParser(),
       routerDelegate: _appRouter.delegate(),
