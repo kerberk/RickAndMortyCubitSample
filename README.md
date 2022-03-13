@@ -1,16 +1,10 @@
 # rick_and_morty_sample
 
-A new Flutter project.
+A flutter smaple app using the Rick and Morty Api with Cubit state management.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Routing via auto_route package
+- Http requests via Dio package
+- Localization via easy_localization package
+- Immutable model classes via freezed with json_annotation package
