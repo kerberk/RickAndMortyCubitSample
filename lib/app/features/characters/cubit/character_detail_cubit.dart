@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:meta/meta.dart';
 import 'package:rick_and_morty_sample/app/features/characters/models/character.dart';
 import 'package:rick_and_morty_sample/app/features/characters/repository/characters_repository.dart';
+import 'package:rick_and_morty_sample/generated/locale_keys.g.dart';
 
 part 'character_detail_state.dart';
 
@@ -22,7 +24,7 @@ class CharacterDetailCubit extends Cubit<CharacterDetailState> {
 
       emit(CharacterDetailLoaded(result));
     } catch (e) {
-      emit(const CharacterDetailError('Couldn\'t load data'));
+      emit(CharacterDetailError(LocaleKeys.error_loading_data.tr()));
     }
   }
 
@@ -36,7 +38,7 @@ class CharacterDetailCubit extends Cubit<CharacterDetailState> {
 
       emit(CharacterDetailLoaded(result));
     } catch (e) {
-      emit(const CharacterDetailError('Couldn\'t load data'));
+      emit(CharacterDetailError(LocaleKeys.error_loading_data.tr()));
     }
   }
 }

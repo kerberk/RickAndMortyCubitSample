@@ -1,9 +1,11 @@
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:meta/meta.dart';
 import 'package:rick_and_morty_sample/app/features/episodes/models/episode.dart';
 import 'package:rick_and_morty_sample/app/features/episodes/models/episode_filter_options.dart';
 import 'package:rick_and_morty_sample/app/features/episodes/repository/episodes_repository.dart';
 import 'package:rick_and_morty_sample/app/shared/models/info.dart';
+import 'package:rick_and_morty_sample/generated/locale_keys.g.dart';
 
 part 'episodes_state.dart';
 
@@ -43,7 +45,7 @@ class EpisodesCubit extends Cubit<EpisodesState> {
 
       emit(EpisodesLoading(oldEpisodes, isFirstLoad: _episodesPage == 1));
 
-      var result = await _episodesRepository.getEpisodes(_episodesPage);
+      var result = await _episodesRepository.getEpisodesWithPage(_episodesPage);
 
       _allEpisodesInfo = result.info;
       _episodes.addAll(result.episodes);
@@ -52,7 +54,7 @@ class EpisodesCubit extends Cubit<EpisodesState> {
 
       _episodesPage++;
     } catch (e) {
-      emit(const EpisodesError('Couldn\'t load data'));
+      emit(EpisodesError(LocaleKeys.error_loading_data.tr()));
     }
   }
 
@@ -62,13 +64,13 @@ class EpisodesCubit extends Cubit<EpisodesState> {
 
       emit(const EpisodesLoading([]));
 
-      var result = await _episodesRepository.getMultipleEpisodes(ids);
+      var result = await _episodesRepository.getEpisodesByIds(ids);
 
       _episodes = result;
 
       emit(EpisodesLoaded(_episodes));
     } catch (e) {
-      emit(const EpisodesError('Couldn\'t load data'));
+      emit(EpisodesError(LocaleKeys.error_loading_data.tr()));
     }
   }
 
@@ -112,7 +114,7 @@ class EpisodesCubit extends Cubit<EpisodesState> {
       emit(EpisodesLoading(oldEpisodes, isFirstLoad: _filteredEpisodesPage == 1));
 
       var episodeFilterOptions = EpisodeFilterOptions(episode: episode, name: name);
-      var result = await _episodesRepository.getFilteredEpisodes(episodeFilterOptions, _filteredEpisodesPage);
+      var result = await _episodesRepository.getEpisodesWithFilterAndPage(episodeFilterOptions, _filteredEpisodesPage);
 
       _allEpisodesInfo = result.info;
       _episodes.addAll(result.episodes);
@@ -121,7 +123,7 @@ class EpisodesCubit extends Cubit<EpisodesState> {
 
       _filteredEpisodesPage++;
     } catch (e) {
-      emit(const EpisodesError('Couldn\'t load data'));
+      emit(EpisodesError(LocaleKeys.error_loading_data.tr()));
     }
   }
 }

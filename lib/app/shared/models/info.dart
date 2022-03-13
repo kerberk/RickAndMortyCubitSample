@@ -1,27 +1,16 @@
-class Info {
-  Info({
-    required this.count,
-    required this.pages,
-    this.next = '',
-    this.prev = '',
-  });
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  final int count;
-  final int pages;
-  final String? next;
-  final String? prev;
+part 'info.freezed.dart';
+part 'info.g.dart';
 
-  factory Info.fromJson(Map<String, dynamic> json) => Info(
-        count: json["count"],
-        pages: json["pages"],
-        next: json["next"],
-        prev: json["prev"],
-      );
+@freezed
+class Info with _$Info {
+  factory Info({
+    required int count,
+    required int pages,
+    @Default('') String next,
+    @Default('') String prev,
+  }) = _Info;
 
-  Map<String, dynamic> toJson() => {
-        "count": count,
-        "pages": pages,
-        "next": next,
-        "prev": prev,
-      };
+  factory Info.fromJson(Map<String, dynamic> json) => _$InfoFromJson(json);
 }

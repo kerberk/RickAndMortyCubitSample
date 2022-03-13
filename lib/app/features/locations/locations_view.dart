@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty_sample/app/features/characters/cubit/characters_cubit.dart';
@@ -9,7 +10,9 @@ import 'package:rick_and_morty_sample/app/features/locations/cubit/locations_cub
 import 'package:rick_and_morty_sample/app/features/locations/location_detail_view.dart';
 import 'package:rick_and_morty_sample/app/features/locations/models/location.dart';
 import 'package:rick_and_morty_sample/app/features/locations/repository/locations_rest_repository.dart';
+import 'package:rick_and_morty_sample/app/features/settings/settings_view.dart';
 import 'package:rick_and_morty_sample/app/shared/widgets/circular_loading_indicator.dart';
+import 'package:rick_and_morty_sample/generated/locale_keys.g.dart';
 
 class LocationsView extends StatefulWidget {
   const LocationsView({Key? key}) : super(key: key);
@@ -40,7 +43,15 @@ class _LocationsViewState extends State<LocationsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Locations'),
+        title: Text(LocaleKeys.locations_appbar_title.tr()),
+        leading: GestureDetector(
+          onTap: () {
+            _handleRouteWithCallback();
+          },
+          child: const Icon(
+            Icons.settings,
+          ),
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
@@ -62,11 +73,12 @@ class _LocationsViewState extends State<LocationsView> {
             child: Column(
               children: [
                 const SizedBox(height: 16),
-                _buildSearchInput(context, _searchNameTextController, 'Search for a name'),
+                _buildSearchInput(context, _searchNameTextController, LocaleKeys.locations_hints_search_name.tr()),
                 const SizedBox(height: 12),
-                _buildSearchInput(context, _searchTypeTextController, 'Search for a type'),
+                _buildSearchInput(context, _searchTypeTextController, LocaleKeys.locations_hints_search_type.tr()),
                 const SizedBox(height: 12),
-                _buildSearchInput(context, _searchDimensionTextController, 'Search for a dimension'),
+                _buildSearchInput(
+                    context, _searchDimensionTextController, LocaleKeys.locations_hints_search_dimension.tr()),
                 const SizedBox(height: 12),
                 _buildFilterButton(),
                 const SizedBox(height: 12),
@@ -120,7 +132,7 @@ class _LocationsViewState extends State<LocationsView> {
           _searchDimensionTextController.text,
         );
       },
-      child: const Text('Search'),
+      child: Text(LocaleKeys.locations_buttons_search.tr()),
     );
   }
 
@@ -269,6 +281,20 @@ class _LocationsViewState extends State<LocationsView> {
   void _toggleFilter() {
     _locationsCubitBloc.showFilterOptions = !_locationsCubitBloc.showFilterOptions;
     setState(() {});
+  }
+
+  void _handleRouteWithCallback() async {
+    Map<String, dynamic>? callback = await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const SettingsView(),
+      ),
+    );
+
+    if (callback != null) {
+      if (callback.containsKey('reload') && callback['reload']) {
+        setState(() {});
+      }
+    }
   }
 
   @override

@@ -1,0 +1,62 @@
+{
+    "home": {
+        "tab_episodes": "Episodes",
+        "tab_characters": "Characters",
+        "tab_locales": "Locales"
+    },
+    "characters": {
+        "appbar_title": "Characters",
+        "label_gender": "Gender",
+        "label_species": "Species",
+        "label_type": "Type",
+        "label_origin": "Origin",
+        "label_location": "Location",
+        "label_episodes": "Episodes",
+        "hints": {
+            "search_name": "Search for a name",
+            "search_species": "Search for a species",
+            "search_type": "Search for a type",
+            "dropdown": "Please choose"
+        },
+        "buttons": {
+            "search": "Search"
+        }
+    },
+    "episodes": {
+        "appbar_title": "Episodes",
+        "label_episode": "Episode",
+        "label_air_date": "Air Date",
+        "label_characters_in_episode": "Characters in this episode",
+        "hints": {
+            "search_name": "Search for a name",
+            "search_episode": "Search for a episode"
+        },
+        "buttons": {
+            "search": "Search"
+        }
+    },
+    "locations": {
+        "appbar_title": "Locations",
+        "label_type": "Type",
+        "label_dimension": "Dimension",
+        "label_residents": "Residents of this location",
+        "hints": {
+            "search_name": "Search for a name",
+            "search_type": "Search for a type",
+            "search_dimension": "Search for a dimension"
+        },
+        "buttons": {
+            "search": "Search"
+        }
+    },
+    "settings": {
+        "appbar_title": "Settings",
+        "dropdown_label_set_language": "Choose language",
+        "dropdown_item_english": "English",
+        "dropdown_item_german": "German",
+        "hints": {
+            "dropdown": "Please choose"
+        }
+    },
+    "error_loading_data": "Couldn't load data"
+}
