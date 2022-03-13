@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty_sample/app/features/home/home_view.dart';
 import 'package:rick_and_morty_sample/app/routes/router.gr.dart';
 import 'package:rick_and_morty_sample/generated/codegen_loader.g.dart';
 

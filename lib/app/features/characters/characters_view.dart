@@ -14,8 +14,6 @@ import 'package:rick_and_morty_sample/app/routes/router.gr.dart';
 import 'package:rick_and_morty_sample/app/shared/widgets/circular_loading_indicator.dart';
 import 'package:rick_and_morty_sample/generated/locale_keys.g.dart';
 
-import 'character_detail_view.dart';
-
 class CharactersView extends StatefulWidget implements AutoRouteWrapper {
   const CharactersView({Key? key}) : super(key: key);
 
