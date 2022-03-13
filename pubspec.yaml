@@ -15,6 +15,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  auto_route: ^3.2.4
   cupertino_icons: ^1.0.2
   dio: ^4.0.4
   easy_localization: ^3.0.0
@@ -27,6 +28,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  auto_route_generator: ^3.2.3
   build_runner: ^2.1.7
   freezed: ^0.15.0+1
   json_serializable: ^6.1.4
