@@ -1,4 +1,5 @@
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,10 +13,11 @@ import 'package:rick_and_morty_sample/app/features/episodes/cubit/episodes_cubit
 import 'package:rick_and_morty_sample/app/features/episodes/episode_detail_view.dart';
 import 'package:rick_and_morty_sample/app/features/episodes/models/episode.dart';
 import 'package:rick_and_morty_sample/app/features/episodes/repository/episodes_rest_repository.dart';
+import 'package:rick_and_morty_sample/app/routes/router.gr.dart';
 import 'package:rick_and_morty_sample/app/shared/widgets/circular_loading_indicator.dart';
 import 'package:rick_and_morty_sample/generated/locale_keys.g.dart';
 
-class CharacterDetailView extends StatefulWidget {
+class CharacterDetailView extends StatefulWidget implements AutoRouteWrapper {
   final int charaterId;
 
   const CharacterDetailView({
@@ -25,6 +27,21 @@ class CharacterDetailView extends StatefulWidget {
 
   @override
   State<CharacterDetailView> createState() => _CharacterDetailViewState();
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<CharacterDetailCubit>(
+          create: (context) => CharacterDetailCubit(CharactersRestRepository()),
+        ),
+        BlocProvider<EpisodesCubit>(
+          create: (context) => EpisodesCubit(EpisodesRestRepository()),
+        ),
+      ],
+      child: this,
+    );
+  }
 }
 
 class _CharacterDetailViewState extends State<CharacterDetailView> {
@@ -228,21 +245,7 @@ class _CharacterDetailViewState extends State<CharacterDetailView> {
 
   Widget _episodeItem(BuildContext context, Episode episode) {
     return InkWell(
-      onTap: () => Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => MultiBlocProvider(
-            providers: [
-              BlocProvider<EpisodeDetailCubit>(
-                create: (context) => EpisodeDetailCubit(EpisodesRestRepository()),
-              ),
-              BlocProvider<CharactersCubit>(
-                create: (context) => CharactersCubit(CharactersRestRepository()),
-              ),
-            ],
-            child: EpisodeDetailView(episodeId: episode.id),
-          ),
-        ),
-      ),
+      onTap: () => context.router.push(EpisodeDetailRoute(episodeId: episode.id)),
       child: Container(
         width: MediaQuery.of(context).size.width,
         margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),

@@ -1,16 +1,18 @@
-import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty_sample/app/features/characters/cubit/characters_cubit.dart';
 import 'package:rick_and_morty_sample/app/features/characters/models/character.dart';
+import 'package:rick_and_morty_sample/app/features/characters/repository/characters_rest_repository.dart';
 import 'package:rick_and_morty_sample/app/features/locations/cubit/location_detail_cubit.dart';
 import 'package:rick_and_morty_sample/app/features/locations/models/location.dart';
+import 'package:rick_and_morty_sample/app/features/locations/repository/locations_rest_repository.dart';
 import 'package:rick_and_morty_sample/app/shared/widgets/character_item_in_details.dart';
 import 'package:rick_and_morty_sample/app/shared/widgets/circular_loading_indicator.dart';
 import 'package:rick_and_morty_sample/generated/locale_keys.g.dart';
 
-class LocationDetailView extends StatefulWidget {
+class LocationDetailView extends StatefulWidget implements AutoRouteWrapper {
   final int locationId;
 
   const LocationDetailView({
@@ -20,6 +22,21 @@ class LocationDetailView extends StatefulWidget {
 
   @override
   State<LocationDetailView> createState() => _LocationDetailViewState();
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<LocationDetailCubit>(
+          create: (context) => LocationDetailCubit(LocationsRestRepository()),
+        ),
+        BlocProvider<CharactersCubit>(
+          create: (context) => CharactersCubit(CharactersRestRepository()),
+        ),
+      ],
+      child: this,
+    );
+  }
 }
 
 class _LocationDetailViewState extends State<LocationDetailView> {

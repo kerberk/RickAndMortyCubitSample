@@ -6,13 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty_sample/app/constants/enums/character_gender.dart';
 import 'package:rick_and_morty_sample/app/constants/enums/character_status.dart';
-import 'package:rick_and_morty_sample/app/features/characters/cubit/character_detail_cubit.dart';
 import 'package:rick_and_morty_sample/app/features/characters/cubit/characters_cubit.dart';
 import 'package:rick_and_morty_sample/app/features/characters/models/character.dart';
 import 'package:rick_and_morty_sample/app/features/characters/repository/characters_rest_repository.dart';
-import 'package:rick_and_morty_sample/app/features/episodes/cubit/episodes_cubit.dart';
-import 'package:rick_and_morty_sample/app/features/episodes/repository/episodes_rest_repository.dart';
 import 'package:rick_and_morty_sample/app/features/settings/settings_view.dart';
+import 'package:rick_and_morty_sample/app/routes/router.gr.dart';
 import 'package:rick_and_morty_sample/app/shared/widgets/circular_loading_indicator.dart';
 import 'package:rick_and_morty_sample/generated/locale_keys.g.dart';
 
@@ -284,21 +282,7 @@ class _CharactersViewState extends State<CharactersView> {
       width: MediaQuery.of(context).size.width,
       margin: const EdgeInsets.symmetric(horizontal: 12.0),
       child: InkWell(
-        onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => MultiBlocProvider(
-              providers: [
-                BlocProvider<CharacterDetailCubit>(
-                  create: (context) => CharacterDetailCubit(CharactersRestRepository()),
-                ),
-                BlocProvider<EpisodesCubit>(
-                  create: (context) => EpisodesCubit(EpisodesRestRepository()),
-                ),
-              ],
-              child: CharacterDetailView(charaterId: character.id),
-            ),
-          ),
-        ),
+        onTap: () => context.router.push(CharacterDetailRoute(charaterId: character.id)),
         child: Row(
           children: [
             Image.network(

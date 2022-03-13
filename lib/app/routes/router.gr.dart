@@ -13,8 +13,8 @@
 import 'package:auto_route/auto_route.dart' as _i2;
 import 'package:flutter/material.dart' as _i10;
 
-import '../features/characters/character_detail_view.dart' as _i7;
-import '../features/characters/characters_view.dart' as _i6;
+import '../features/characters/character_detail_view.dart' as _i6;
+import '../features/characters/characters_view.dart' as _i7;
 import '../features/episodes/episode_detail_view.dart' as _i5;
 import '../features/episodes/episodes_view.dart' as _i4;
 import '../features/home/home_view.dart' as _i1;
@@ -62,10 +62,6 @@ class AppRouter extends _i2.RootStackRouter {
           child:
               _i5.EpisodeDetailView(key: args.key, episodeId: args.episodeId));
     },
-    CharactersRoute.name: (routeData) {
-      return _i2.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i6.CharactersView());
-    },
     CharacterDetailRoute.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<CharacterDetailRouteArgs>(
@@ -73,8 +69,12 @@ class AppRouter extends _i2.RootStackRouter {
               charaterId: pathParams.getInt('charaterId')));
       return _i2.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i7.CharacterDetailView(
+          child: _i6.CharacterDetailView(
               key: args.key, charaterId: args.charaterId));
+    },
+    CharactersRoute.name: (routeData) {
+      return _i2.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i7.CharactersView());
     },
     LocationsRoute.name: (routeData) {
       return _i2.MaterialPageX<dynamic>(
@@ -102,7 +102,9 @@ class AppRouter extends _i2.RootStackRouter {
                 _i2.RouteConfig(EpisodesRoute.name,
                     path: '', parent: EpisodesRouter.name),
                 _i2.RouteConfig(EpisodeDetailRoute.name,
-                    path: ':episodeId', parent: EpisodesRouter.name)
+                    path: ':episodeId', parent: EpisodesRouter.name),
+                _i2.RouteConfig(CharacterDetailRoute.name,
+                    path: ':characterId', parent: EpisodesRouter.name)
               ]),
           _i2.RouteConfig(CharactersRouter.name,
               path: 'characters',
@@ -111,7 +113,9 @@ class AppRouter extends _i2.RootStackRouter {
                 _i2.RouteConfig(CharactersRoute.name,
                     path: '', parent: CharactersRouter.name),
                 _i2.RouteConfig(CharacterDetailRoute.name,
-                    path: ':characterId', parent: CharactersRouter.name)
+                    path: ':characterId', parent: CharactersRouter.name),
+                _i2.RouteConfig(EpisodeDetailRoute.name,
+                    path: ':episodeId', parent: CharactersRouter.name)
               ]),
           _i2.RouteConfig(LocationsRouter.name,
               path: 'locations',
@@ -120,7 +124,9 @@ class AppRouter extends _i2.RootStackRouter {
                 _i2.RouteConfig(LocationsRoute.name,
                     path: '', parent: LocationsRouter.name),
                 _i2.RouteConfig(LocationDetailRoute.name,
-                    path: ':locationId', parent: LocationsRouter.name)
+                    path: ':locationId', parent: LocationsRouter.name),
+                _i2.RouteConfig(CharacterDetailRoute.name,
+                    path: ':characterId', parent: LocationsRouter.name)
               ]),
           _i2.RouteConfig(SettingsRouter.name,
               path: 'settings', parent: HomeRoute.name)
@@ -208,15 +214,7 @@ class EpisodeDetailRouteArgs {
 }
 
 /// generated route for
-/// [_i6.CharactersView]
-class CharactersRoute extends _i2.PageRouteInfo<void> {
-  const CharactersRoute() : super(CharactersRoute.name, path: '');
-
-  static const String name = 'CharactersRoute';
-}
-
-/// generated route for
-/// [_i7.CharacterDetailView]
+/// [_i6.CharacterDetailView]
 class CharacterDetailRoute extends _i2.PageRouteInfo<CharacterDetailRouteArgs> {
   CharacterDetailRoute({_i10.Key? key, required int charaterId})
       : super(CharacterDetailRoute.name,
@@ -238,6 +236,14 @@ class CharacterDetailRouteArgs {
   String toString() {
     return 'CharacterDetailRouteArgs{key: $key, charaterId: $charaterId}';
   }
+}
+
+/// generated route for
+/// [_i7.CharactersView]
+class CharactersRoute extends _i2.PageRouteInfo<void> {
+  const CharactersRoute() : super(CharactersRoute.name, path: '');
+
+  static const String name = 'CharactersRoute';
 }
 
 /// generated route for

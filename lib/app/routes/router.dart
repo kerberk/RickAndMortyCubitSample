@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:rick_and_morty_sample/app/features/characters/character_detail_view.dart';
 import 'package:rick_and_morty_sample/app/features/characters/characters_view.dart';
@@ -25,7 +24,11 @@ import 'package:rick_and_morty_sample/app/features/settings/settings_view.dart';
           AutoRoute(
             path: ':episodeId',
             page: EpisodeDetailView,
-          )
+          ),
+          AutoRoute(
+            path: ':characterId',
+            page: CharacterDetailView,
+          ),
         ],
       ),
       AutoRoute(
@@ -41,11 +44,15 @@ import 'package:rick_and_morty_sample/app/features/settings/settings_view.dart';
             path: ':characterId',
             page: CharacterDetailView,
           ),
+          AutoRoute(
+            path: ':episodeId',
+            page: EpisodeDetailView,
+          ),
         ],
       ),
       AutoRoute(
         path: 'locations',
-        name: 'locationsRouter',
+        name: 'LocationsRouter',
         page: EmptyRouterPage,
         children: [
           AutoRoute(
@@ -55,6 +62,10 @@ import 'package:rick_and_morty_sample/app/features/settings/settings_view.dart';
           AutoRoute(
             path: ':locationId',
             page: LocationDetailView,
+          ),
+          AutoRoute(
+            path: ':characterId',
+            page: CharacterDetailView,
           ),
         ],
       ),

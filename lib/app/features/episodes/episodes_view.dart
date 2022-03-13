@@ -12,6 +12,7 @@ import 'package:rick_and_morty_sample/app/features/episodes/episode_detail_view.
 import 'package:rick_and_morty_sample/app/features/episodes/models/episode.dart';
 import 'package:rick_and_morty_sample/app/features/episodes/repository/episodes_rest_repository.dart';
 import 'package:rick_and_morty_sample/app/features/settings/settings_view.dart';
+import 'package:rick_and_morty_sample/app/routes/router.gr.dart';
 import 'package:rick_and_morty_sample/app/shared/widgets/circular_loading_indicator.dart';
 import 'package:rick_and_morty_sample/generated/locale_keys.g.dart';
 
@@ -212,21 +213,7 @@ class _EpisodesViewState extends State<EpisodesView> {
 
   Widget _episodeItem(BuildContext context, Episode episode) {
     return InkWell(
-      onTap: () => Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => MultiBlocProvider(
-            providers: [
-              BlocProvider<EpisodeDetailCubit>(
-                create: (context) => EpisodeDetailCubit(EpisodesRestRepository()),
-              ),
-              BlocProvider<CharactersCubit>(
-                create: (context) => CharactersCubit(CharactersRestRepository()),
-              ),
-            ],
-            child: EpisodeDetailView(episodeId: episode.id),
-          ),
-        ),
-      ),
+      onTap: () => context.router.push(EpisodeDetailRoute(episodeId: episode.id)),
       child: Container(
         width: MediaQuery.of(context).size.width,
         margin: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 12.0),
