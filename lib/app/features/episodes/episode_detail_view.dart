@@ -1,19 +1,42 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morty_sample/app/features/characters/cubit/characters_cubit.dart';
 import 'package:rick_and_morty_sample/app/features/characters/models/character.dart';
+import 'package:rick_and_morty_sample/app/features/characters/repository/characters_rest_repository.dart';
 import 'package:rick_and_morty_sample/app/features/episodes/cubit/episode_detail_cubit.dart';
 import 'package:rick_and_morty_sample/app/features/episodes/models/episode.dart';
+import 'package:rick_and_morty_sample/app/features/episodes/repository/episodes_rest_repository.dart';
 import 'package:rick_and_morty_sample/app/shared/widgets/character_item_in_details.dart';
 import 'package:rick_and_morty_sample/app/shared/widgets/circular_loading_indicator.dart';
 import 'package:rick_and_morty_sample/generated/locale_keys.g.dart';
 
-class EpisodeDetailView extends StatefulWidget {
-  const EpisodeDetailView({Key? key}) : super(key: key);
+class EpisodeDetailView extends StatefulWidget implements AutoRouteWrapper {
+  final int episodeId;
+
+  const EpisodeDetailView({
+    Key? key,
+    @PathParam() required this.episodeId,
+  }) : super(key: key);
 
   @override
   State<EpisodeDetailView> createState() => _EpisodeDetailViewState();
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<EpisodeDetailCubit>(
+          create: (context) => EpisodeDetailCubit(EpisodesRestRepository()),
+        ),
+        BlocProvider<CharactersCubit>(
+          create: (context) => CharactersCubit(CharactersRestRepository()),
+        ),
+      ],
+      child: this,
+    );
+  }
 }
 
 class _EpisodeDetailViewState extends State<EpisodeDetailView> {
@@ -25,7 +48,7 @@ class _EpisodeDetailViewState extends State<EpisodeDetailView> {
     super.initState();
 
     _episodeDetailCubit = BlocProvider.of<EpisodeDetailCubit>(context);
-    _episodeDetailCubit.getEpisodeById();
+    _episodeDetailCubit.getEpisodeById(id: widget.episodeId);
 
     _charactersCubit = BlocProvider.of<CharactersCubit>(context);
   }

@@ -10,9 +10,7 @@ part 'episode_detail_state.dart';
 class EpisodeDetailCubit extends Cubit<EpisodeDetailState> {
   final EpisodesRepository _episodesRepository;
 
-  final int _id;
-
-  EpisodeDetailCubit(this._episodesRepository, this._id) : super(const EpisodeDetailInitial());
+  EpisodeDetailCubit(this._episodesRepository) : super(const EpisodeDetailInitial());
 
   Future<void> getEpisodeById({int id = 0}) async {
     try {
@@ -20,7 +18,7 @@ class EpisodeDetailCubit extends Cubit<EpisodeDetailState> {
 
       emit(const EpisodeDetailLoading());
 
-      var result = await _episodesRepository.getEpisodeById(id == 0 ? _id : id);
+      var result = await _episodesRepository.getEpisodeById(id);
 
       emit(EpisodeDetailLoaded(result));
     } catch (e) {
