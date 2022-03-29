@@ -13,14 +13,14 @@
 import 'package:auto_route/auto_route.dart' as _i2;
 import 'package:flutter/material.dart' as _i10;
 
-import '../features/characters/character_detail_view.dart' as _i6;
-import '../features/characters/characters_view.dart' as _i7;
-import '../features/episodes/episode_detail_view.dart' as _i5;
-import '../features/episodes/episodes_view.dart' as _i4;
-import '../features/home/home_view.dart' as _i1;
-import '../features/locations/location_detail_view.dart' as _i9;
-import '../features/locations/locations_view.dart' as _i8;
-import '../features/settings/settings_view.dart' as _i3;
+import '../features/characters/views/character_detail_view.dart' as _i6;
+import '../features/characters/views/characters_view.dart' as _i7;
+import '../features/episodes/views/episode_detail_view.dart' as _i5;
+import '../features/episodes/views/episodes_view.dart' as _i4;
+import '../features/home/views/home_view.dart' as _i1;
+import '../features/locations/views/location_detail_view.dart' as _i9;
+import '../features/locations/views/locations_view.dart' as _i8;
+import '../features/settings/views/settings_view.dart' as _i3;
 
 class AppRouter extends _i2.RootStackRouter {
   AppRouter([_i10.GlobalKey<_i10.NavigatorState>? navigatorKey])
